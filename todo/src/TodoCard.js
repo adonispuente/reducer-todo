@@ -1,10 +1,10 @@
 import React from "react";
 
-const TodoCard = ({ item, dispatch }) => {
+const TodoCard = ({ item, toggleTodo }) => {
   return (
     <li
       className={`${item.completed ? "completed" : ""}`}
-      onClick={() => dispatch({ type: "COMPLETE", payload: item.id })}
+      onClick={() => toggleTodo(item.id)}
     >
       {item.item}
     </li>

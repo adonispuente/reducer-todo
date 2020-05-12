@@ -14,6 +14,7 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case "ADD":
       return {
+        ...state,
         list: [
           ...state.list,
           { item: action.payload, completed: false, id: Date.now() },
@@ -21,14 +22,39 @@ export const reducer = (state, action) => {
       };
 
     case "COMPLETE":
-      Array = Array.map((item) => {
-        if (item.id === action.payload) item.completed = !item.completed;
+      // const updatedTodos = state.list.map((item) => {
+      //   if (action.payload === item.id) {
+      //     const updatedTodo = { ...item, completed: !item.completed };
+      //     return updatedTodo;
+      //   }
+      //   return item;
+      // });
+      // return {
+      //   ...state,
+      //   list: updatedTodos,
+      // };
 
-        return item;
-      });
       return {
-        list: [...Array],
+        ...state,
+        list: Array.map((item) =>
+          item.id === action.payload
+            ? { ...item, completed: !item.completed }
+            : item
+        ),
       };
+
+    // console.log("entering complete block");
+    // const newArray = Array.map((item) => {
+    //   if (item.id === action.payload) {
+    //     item.completed = !item.completed;
+
+    //     return item;
+    //   }
+    //   return item;
+    // });
+    // return {
+    //   list: [...newArray],
+    // };
 
     case "CLEAR":
       Array = Array.filter((item) => !item.completed);
